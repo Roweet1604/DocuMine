@@ -1,0 +1,34 @@
+SAMPLE DATA - fictional project "Kestrel" made up for testing DocuMine. People, college and systems are not real.
+
+#kestrel-dev chat export - Thu 2 Oct 2026
+
+[09:02] maya: morning! quick sync on kestrel before the sprint starts
+[09:03] dev: o/
+[09:03] lena: here
+[09:03] omar: here, coffee in hand
+[09:04] maya: first thing - database. postgres or influx??
+[09:05] dev: postgres pls, we all know it and supabase free tier is enough
+[09:05] omar: +1 postgres. influx is overkill for ~40 sensors
+[09:06] maya: ok DECIDED: postgres (supabase) for readings. no influx
+[09:07] lena: how often do the sensors report? esp32 can do every 30s
+[09:08] omar: every 5 min is plenty for temp/humidity, saves wifi + battery
+[09:08] maya: agreed, 5 min interval
+[09:10] dev: how long do we keep raw readings tho
+[09:11] maya: 90 days raw, after that only hourly averages (kept forever)
+[09:11] lena: 👍
+[09:13] omar: alerts - if greenhouse B goes above 35C the orchids basically die lol
+[09:14] maya: alert at 35C then. and humidity below 40%
+[09:15] dev: alerts by email or telegram?
+[09:16] maya: telegram bot for v1, email later
+[09:17] lena: should we send the same alert every minute while its hot? thatll be spammy
+[09:17] maya: no - 30 min cooldown per sensor per alert type
+[09:18] lena: who's doing the ingest endpoint
+[09:18] dev: me. POST /readings, done by fri 10 oct
+[09:19] maya: lena can you do the dashboard
+[09:19] lena: yep, streamlit, by fri 17 oct
+[09:20] omar: i'll flash the esp32 firmware + calibrate sensors this week
+[09:21] maya: and i'll write up rough design notes today
+[09:22] dev: api auth? shared password for all boards?
+[09:22] maya: no shared password. each board gets its own device token, we store only the hash
+[09:23] omar: ok makes sense
+[09:24] maya: demo for prof. hale is fri 24 oct. lets go 🚀

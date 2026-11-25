@@ -1,0 +1,22 @@
+[
+  {"id": 1, "question": "Which database did the team decide to use for the sensor readings?", "expected_filename": "kestrel_team_chat.txt", "expected_answer": "PostgreSQL on Supabase, not InfluxDB"},
+  {"id": 2, "question": "How will alerts be delivered in version 1?", "expected_filename": "kestrel_team_chat.txt", "expected_answer": "A Telegram bot; email comes later"},
+  {"id": 3, "question": "Who is building the POST /readings endpoint and when is it due?", "expected_filename": "kestrel_team_chat.txt", "expected_answer": "Dev, by Friday 10 Oct 2026"},
+  {"id": 4, "question": "Who is building the dashboard, with what tool, and by when?", "expected_filename": "kestrel_team_chat.txt", "expected_answer": "Lena, in Streamlit, by Friday 17 Oct 2026"},
+  {"id": 5, "question": "When is the demo for Prof. Hale?", "expected_filename": "kestrel_team_chat.txt", "expected_answer": "Friday 24 Oct 2026"},
+  {"id": 6, "question": "What is Omar's task for the first week?", "expected_filename": "kestrel_team_chat.txt", "expected_answer": "Flash the ESP32 firmware and calibrate the sensors"},
+  {"id": 7, "question": "How long are raw sensor readings kept before they are rolled up into hourly averages?", "expected_filename": "kestrel_design_notes.md", "expected_answer": "30 days according to the design notes", "note": "Deliberate contradiction: kestrel_team_chat.txt says 90 days. A good answer or issue check should flag this."},
+  {"id": 8, "question": "At what temperature does Kestrel send an alert?", "expected_filename": "kestrel_design_notes.md", "expected_answer": "Above 35 C"},
+  {"id": 9, "question": "What happens when soil moisture is low?", "expected_filename": "kestrel_design_notes.md", "expected_answer": "Below 20 % it shows a warning on the dashboard only, no alert"},
+  {"id": 10, "question": "How do the ESP32 boards authenticate to the API?", "expected_filename": "kestrel_design_notes.md", "expected_answer": "Each board has its own device token in the X-Device-Token header; the server stores only its sha256 hash"},
+  {"id": 11, "question": "When does the nightly rollup job run?", "expected_filename": "kestrel_design_notes.md", "expected_answer": "At 02:00"},
+  {"id": 12, "question": "Which features are explicitly out of scope for v1?", "expected_filename": "kestrel_design_notes.md", "expected_answer": "Email alerts, a mobile app and per-plant profiles"},
+  {"id": 13, "question": "What was the root cause of incident INC-007?", "expected_filename": "kestrel_incident_INC-007.docx", "expected_answer": "The ESP32 firmware connects to Wi-Fi only at boot with no reconnect retry, so the boards stayed offline after the access point rebooted"},
+  {"id": 14, "question": "Why was no alert sent during the Greenhouse B outage?", "expected_filename": "kestrel_incident_INC-007.docx", "expected_answer": "The alert worker only checks thresholds on readings that arrive, so missing data never triggered an alert"},
+  {"id": 15, "question": "How much data was lost in the incident and for how many sensors?", "expected_filename": "kestrel_incident_INC-007.docx", "expected_answer": "About 5.5 hours (01:40 to 07:15) for the 14 sensors in Greenhouse B"},
+  {"id": 16, "question": "Who noticed the outage and how?", "expected_filename": "kestrel_incident_INC-007.docx", "expected_answer": "Lena, at 07:10, saw a flat line for Greenhouse B on the dashboard"},
+  {"id": 17, "question": "Which incident action item is due on 31 Oct 2026 and who owns it?", "expected_filename": "kestrel_incident_INC-007.docx", "expected_answer": "Omar: buffer up to 6 hours of readings on each board and upload them when back online"},
+  {"id": 18, "question": "After how many minutes without data is a sensor considered stale?", "expected_filename": "kestrel_service.zip/kestrel/config.py", "expected_answer": "15 minutes (STALE_DATA_MINUTES)"},
+  {"id": 19, "question": "How does verify_token compare a device token with the stored hash?", "expected_filename": "kestrel_service.zip/kestrel/auth.py", "expected_answer": "It hashes the token with sha256 and compares with hmac.compare_digest (constant time)"},
+  {"id": 20, "question": "What does check_reading return for a soil moisture value below the threshold?", "expected_filename": "kestrel_service.zip/kestrel/alerts.py", "expected_answer": "'warning'"}
+]
